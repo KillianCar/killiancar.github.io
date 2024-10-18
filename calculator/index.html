@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homely Budget Calculator</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+    .container {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      max-width: 900px;
+      width: 100%;
+      margin: 15px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .header h2 {
+      color: #1a73e8;
+      font-size: 1.8em;
+      font-weight: 700;
+      margin: 0;
+    }
+    .input-group {
+      margin-bottom: 15px;
+    }
+    .input-group label {
+      font-size: 1em;
+      color: #555;
+      margin-bottom: 5px;
+      display: block;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 8px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+    .input-group input:focus {
+      border-color: #1a73e8;
+      outline: none;
+      box-shadow: 0 0 6px rgba(26, 115, 232, 0.4);
+    }
+    .warning-message {
+      color: #d9534f;
+      font-size: 0.9em;
+      margin-top: 5px;
+      display: none;
+    }
+    .sections {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .stacked-sections {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 15px;
+    }
+    .buy-section {
+      flex: 1;
+    }
+    .section {
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .section p {
+        margin-top: 0;
+    }
+    h3 {
+      color: #333;
+      font-size: 1.3em;
+      margin-bottom: 8px;
+      margin-top: 8px;
+    }
+    .section p, .section span {
+      font-size: 1.4em; /* Increased font size for better visibility */
+      color: #4a4a4a;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .output-table {
+      width: 100%;
+      border-collapse: collapse;
+      /* margin-top: 20px; */
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    .output-table th, .output-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    .output-table th {
+      background-color: #e8f0fe;
+      font-size: 1em;
+      color: #333;
+      font-weight: 500;
+    }
+    .output-table td {
+      font-size: 1em;
+    }
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 0.8s forwards;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    @media (max-width: 768px) {
+      .sections {
+        flex-direction: column;
+      }
+    }
+    p.disclaimer {
+      font-size: 0.85em;
+      color: grey;
+      font-style: italic;
+      margin-top: 20px;
+    }
+    p.subtext, span.subtext {
+      font-size: 0.9em; 
+      color: #666;
+    }
+    span.subtextValue {
+      font-size: 1.2em; 
+      color: #00ac47;
+    }
+    .discount-text {
+      color: #00ac47;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="input-group">
+    <h3>Home Price</h3>
+    <div style="display: flex; align-items: center;">
+      <span style="margin-right: 5px; font-size: 1em;">&euro;</span>
+      <input type="text" id="housePrice" placeholder="Enter house price" value="350,000" onclick="this.select()" oninput="formatInputValue(); calculateValues(); checkPrice()" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+    </div>
+    <p id="warningMessage" class="warning-message"></p>
+  </div>
+  <div class="sections">
+    <div class="stacked-sections">
+      <div class="section">
+        <h3>Deposit</h3>
+        <p><span id="deposit" class="fade-in">&euro;0</span></p>
+        <p class="subtext">You pay just 2.5% of the purchase price (minimum €10k) and Homely buys the property.</p>
+      </div>
+      <div class="section">
+        <h3>Rent</h3>
+        <p><span id="rent" class="fade-in">&euro;0</span><span> Per Month</span></p>
+        <p></p>
+        <p class="subtext">20% of your rent each month is discounted against the final purchase price. In this example it's <span class="subtextValue" id="rentDiscount" class="fade-in">&euro;0</span> each month. Your rent will increase marginally each year.</p>
+      </div>
+    </div>
+    <div class="buy-section section">
+      <h3>Buy</h3>
+      <table class="output-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Year 3</th>
+            <th>Year 5</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Potential Market Value*</td>
+            <td id="marketValue3" class="fade-in">&euro;0</td>
+            <td id="marketValue5" class="fade-in">&euro;0</td>
+          </tr>
+          <tr>
+            <td class="discount-text">Rent Discount</td>
+            <td id="rentDiscount3" class="fade-in discount-text">&euro;0</td>
+            <td id="rentDiscount5" class="fade-in discount-text">&euro;0</td>
+          </tr>
+          <tr>
+            <td class="discount-text">Market Value Discount</td>
+            <td id="marketValueDiscount3" class="fade-in discount-text">&euro;0</td>
+            <td id="marketValueDiscount5" class="fade-in discount-text">&euro;0</td>
+          </tr>
+          <tr>
+            <td>Your Purchase Price</td>
+            <td id="purchasePrice3" class="fade-in">&euro;0</td>
+            <td id="purchasePrice5" class="fade-in">&euro;0</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="subtext">At the end of a 3 or 5 year leasing period, you'll be ready to purchase your property at a discount to its current market value.</p>
+      <p class="subtext">*Based on a sample 5% property value increase annually.</p>
+    </div>
+  </div>
+  <p class="disclaimer">
+    The above is an example of how rent-to-own works for illustrative purposes only. All rents, base costs, and discounts will be agreed between Homely and each customer at the outset but will be strictly dependent on your personal circumstances, property type and location.
+  </p>
+</div>
+<script>
+  function calculateValues() {
+    const housePriceInput = document.getElementById('housePrice');
+    const housePrice = parseFloat(housePriceInput.value.replace(/,/g, '')) || 0;
+
+    if (housePrice < 300000 || housePrice > 5000000) {
+        updateAllOutputsToZero();
+        return;
+    }
+
+    // Constants
+    const purchase_price = housePrice;
+    const gross_income_yield = 0.0875;
+    const income_yield_ratio = 0.8;
+    const growth_rate = 0.02;
+    const change_rate = 0.05;
+    const home_price_growth_rate = 0.05;
+    const min_deposit = 10000;
+    const deposit_percentage = 0.025;
+    const uplift_discount_rate = 0.2;
+    const monthly_payment_discount_rate = 0.2;
+    const e21 = 0.02;
+
+    // Step 1: Calculate the monthly gross income (E11)
+    const monthly_payment_y1 = (purchase_price * gross_income_yield) / 12;
+
+    // Step 2: Calculate the initial income and discount for year 1 (K13, K15)
+    const year_1_market_rent = monthly_payment_y1 * income_yield_ratio; // K13
+    const year_1_discount_payment = monthly_payment_y1 - year_1_market_rent; // K15
+
+    // Step 3: Initialize an array to hold the calculated yearly values (K11 to O11)
+    const yearly_rent_payments = [];
+
+    // Step 4: Calculate the values for each year from K11 to O11
+    for (let year = 0; year < 5; year++) { // 5 years: K11, L11, M11, N11, O11
+        let year_rent, discount_payment, year_total;
+
+        if (year === 0) {
+        // For the first year (K11), use the initial income and discount
+        year_rent = year_1_market_rent;
+        discount_payment = year_1_discount_payment;
+        } else {
+        // For subsequent years (L11, M11, N11, O11), calculate using the previous year's values
+        const previous_income = yearly_rent_payments[year - 1].rent;
+        const previous_discount = yearly_rent_payments[year - 1].discount_payment;
+
+        year_rent = previous_income * (1 + growth_rate); // Calculate income for the current year
+        discount_payment = previous_discount * (1 + change_rate); // Calculate discount for the current year
+        }
+
+        // Calculate the total for the current year (income + discount)
+        year_total = year_rent + discount_payment;
+
+        // Store the results for the current year
+        yearly_rent_payments.push({
+        rent: year_rent,
+        discount_payment: discount_payment,
+        total: year_total
+        });
+    }
+
+    // Step 5: Calculate home price growth for each year (K4 to O4)
+    const home_prices = [];
+    let current_home_price = purchase_price * (1 + home_price_growth_rate); // K4 is the initial purchase price with growth
+
+    for (let year = 0; year < 5; year++) { // K4, L4, M4, N4, O4
+        home_prices.push(current_home_price); // Append the current price for the year
+        current_home_price *= (1 + home_price_growth_rate); // Apply home price growth for the next year
+    }
+
+    // Step 6: Calculate Uplift Discounts for each year (K24 to O24)
+    const uplift_discounts = [];
+    for (let year = 0; year < 5; year++) {
+        let year_20, year_21, year_22, uplift_discount;
+
+        if (year === 0) {
+        // For Year 1 (K24)
+        year_20 = home_prices[year] - purchase_price;
+        year_21 = e21 * purchase_price;
+        } else {
+        // For subsequent years (L24 to O24)
+        year_20 = home_prices[year] - home_prices[year - 1];
+        year_21 = e21 * purchase_price * Math.pow(1 + e21, year);
+        }
+
+        year_22 = year_20 - year_21;
+        uplift_discount = year_22 * uplift_discount_rate;
+        uplift_discounts.push(uplift_discount);
+    }
+
+    // Step 7: Calculate deposit
+    const deposit = Math.max(purchase_price * deposit_percentage, min_deposit);
+    updateContent('deposit', '€' + Math.round(deposit).toLocaleString('en'));
+
+    // Step 8: Calculate rent and rent discount
+    updateContent('rent', '€' + Math.round(year_1_market_rent + year_1_discount_payment).toLocaleString('en'));
+    const rentDiscountMonthly = year_1_discount_payment;
+    updateContent('rentDiscount', '€' + Math.round(rentDiscountMonthly).toLocaleString('en'));
+
+    // Step 9: Calculate cumulative rent discounts
+    const cumulative_yearly_rent_discounts = [];
+    let previous_discount = 0;
+    for (let year = 0; year < yearly_rent_payments.length; year++) {
+        const current_year_discount = (yearly_rent_payments[year].total * monthly_payment_discount_rate * 12) + previous_discount;
+        previous_discount = current_year_discount;
+        cumulative_yearly_rent_discounts.push(current_year_discount);
+    }
+
+    // Step 10: Calculate cumulative uplift discounts
+    const cumulative_uplift_discounts = [];
+    let previous_uplift_discount = 0;
+    for (let year = 0; year < uplift_discounts.length; year++) {
+        const current_year_discount = uplift_discounts[year] + previous_uplift_discount;
+        previous_uplift_discount = current_year_discount;
+        cumulative_uplift_discounts.push(current_year_discount);
+    }
+
+    // Step 11: Update market values and purchase prices
+    // For Year 3 (index 2)
+    const marketValueYear3 = home_prices[2];
+    const rentDiscount3 = cumulative_yearly_rent_discounts[2];
+    const marketValueDiscount3 = cumulative_uplift_discounts[2];
+    const purchasePrice3 = marketValueYear3 - rentDiscount3 - marketValueDiscount3;
+
+    updateContent('marketValue3', '€' + Math.round(marketValueYear3).toLocaleString('en'));
+    updateContent('rentDiscount3', '-€' + Math.round(rentDiscount3).toLocaleString('en'));
+    updateContent('marketValueDiscount3', '-€' + Math.round(marketValueDiscount3).toLocaleString('en'));
+    updateContent('purchasePrice3', '€' + Math.round(purchasePrice3).toLocaleString('en'));
+
+    // For Year 5 (index 4)
+    const marketValueYear5 = home_prices[4];
+    const rentDiscount5 = cumulative_yearly_rent_discounts[4];
+    const marketValueDiscount5 = cumulative_uplift_discounts[4];
+    const purchasePrice5 = marketValueYear5 - rentDiscount5 - marketValueDiscount5;
+
+    updateContent('marketValue5', '€' + Math.round(marketValueYear5).toLocaleString('en'));
+    updateContent('rentDiscount5', '-€' + Math.round(rentDiscount5).toLocaleString('en'));
+    updateContent('marketValueDiscount5', '-€' + Math.round(marketValueDiscount5).toLocaleString('en'));
+    updateContent('purchasePrice5', '€' + Math.round(purchasePrice5).toLocaleString('en'));
+    }
+
+
+
+
+  function updateContent(id, content) {
+    const element = document.getElementById(id);
+    element.textContent = content;
+    element.classList.remove('fade-in');
+    void element.offsetWidth;
+    element.classList.add('fade-in');
+  }
+
+  function updateAllOutputsToZero() {
+    const outputIds = ['deposit', 'rent', 'rentDiscount', 'marketValue3', 'marketValue5', 'rentDiscount3', 'rentDiscount5', 'marketValueDiscount3', 'marketValueDiscount5', 'purchasePrice3', 'purchasePrice5'];
+    outputIds.forEach(id => {
+      updateContent(id, '€0');
+    });
+  }
+
+  function formatInputValue() {
+    const input = document.getElementById('housePrice');
+    const value = input.value.replace(/,/g, '');
+    if (!isNaN(value) && value !== '') {
+      input.value = parseFloat(value).toLocaleString('en');
+    }
+  }
+
+  function checkPrice() {
+    const housePrice = parseFloat(document.getElementById('housePrice').value.replace(/,/g, '')) || 0;
+    const warningMessage = document.getElementById('warningMessage');
+    if (housePrice < 300000) {
+      warningMessage.textContent = 'Currently we are only accepting properties of €300,000 or higher.';
+      warningMessage.style.display = 'block';
+    } else if (housePrice > 5000000) {
+      warningMessage.textContent = 'Please enter a property value less than €5,000,000.';
+      warningMessage.style.display = 'block';
+    } else {
+      warningMessage.style.display = 'none';
+    }
+  }
+
+  window.onload = function() {
+    calculateValues();
+  };
+</script>
+</body>
+</html>
