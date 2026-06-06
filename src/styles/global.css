@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+
+/* Toggle Tailwind's dark: variant via the [data-theme='dark'] attribute on <html>. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/*
+  "Terminal" theme — clean sans body, monospace metadata, one teal accent.
+  Light is the default; dark is applied via [data-theme='dark'] on <html>.
+*/
+:root {
+	--bg: #fafafa;
+	--fg: #14161b;
+	--muted: #5a6373;
+	--accent: #0d9488;
+	--rule: #e4e7ec;
+	--code-bg: #eef1f4;
+	--code-block-bg: #0f1117;
+	--code-fg: #e6e9ef;
+	color-scheme: light;
+}
+[data-theme='dark'] {
+	--bg: #0f1117;
+	--fg: #e6e9ef;
+	--muted: #8b94a7;
+	--accent: #5eead4;
+	--rule: #232834;
+	--code-bg: #1d222c;
+	--code-block-bg: #0a0c11;
+	--code-fg: #e6e9ef;
+	color-scheme: dark;
+}
+
+html {
+	font-family: var(--font-sans);
+}
+body {
+	margin: 0;
+	padding: 0;
+	background: var(--bg);
+	color: var(--fg);
+	font-size: 16px;
+	line-height: 1.6;
+	text-align: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	-webkit-font-smoothing: antialiased;
+}
+main {
+	width: 760px;
+	max-width: calc(100% - 2em);
+	margin: 0 auto;
+	padding: 2.25rem 1em 3rem;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0 0 0.5rem 0;
+	color: var(--fg);
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	font-weight: 700;
+}
+h1 {
+	font-size: 1.9rem;
+}
+h2 {
+	font-size: 1.5rem;
+}
+h3 {
+	font-size: 1.25rem;
+}
+h4 {
+	font-size: 1.1rem;
+}
+
+/* Links */
+a {
+	color: var(--accent);
+	text-underline-offset: 2px;
+}
+a:hover {
+	color: var(--accent);
+}
+
+p {
+	margin: 0 0 1.3em;
+}
+
+/* Code */
+code {
+	font-family: var(--font-mono);
+	font-size: 0.88em;
+	background-color: var(--code-bg);
+	padding: 0.15em 0.4em;
+	border-radius: 4px;
+}
+pre {
+	font-family: var(--font-mono);
+	background-color: var(--code-block-bg) !important;
+	color: var(--code-fg);
+	padding: 1.1rem 1.25rem;
+	border-radius: 8px;
+	overflow: auto;
+	font-size: 0.85rem;
+	line-height: 1.6;
+}
+pre > code {
+	all: unset;
+	font-family: var(--font-mono);
+}
+
+blockquote {
+	border-left: 3px solid var(--accent);
+	padding: 0.2em 0 0.2em 1.25rem;
+	margin: 0 0 1.4em;
+	color: var(--muted);
+	font-style: italic;
+}
+hr {
+	border: none;
+	border-top: 1px solid var(--rule);
+}
+table {
+	width: 100%;
+}
+img {
+	max-width: 100%;
+	height: auto;
+	border-radius: 8px;
+}
+textarea,
+input {
+	font-size: 16px;
+}
+
+@media (max-width: 720px) {
+	main {
+		padding: 1.5rem 1em 2.5rem;
+	}
+	h1 {
+		font-size: 1.6rem;
+	}
+}
+
+.sr-only {
+	border: 0;
+	padding: 0;
+	margin: 0;
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
