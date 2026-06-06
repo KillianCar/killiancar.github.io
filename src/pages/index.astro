@@ -22,6 +22,7 @@ const posts = await getPublishedPosts();
 				padding: 0;
 			}
 			.post {
+				position: relative;
 				display: grid;
 				grid-template-columns: 1fr auto;
 				column-gap: 1rem;
@@ -46,6 +47,13 @@ const posts = await getPublishedPosts();
 			.post-title a {
 				color: var(--fg);
 				text-decoration: none;
+			}
+			/* Stretch the title link to cover the whole card, so the entire
+			   row is clickable while keeping a single semantic link. */
+			.post-title a::after {
+				content: '';
+				position: absolute;
+				inset: 0;
 			}
 			.post:hover .post-title a {
 				color: var(--accent);
