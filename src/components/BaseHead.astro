@@ -24,6 +24,7 @@ const socialImageURL = new URL(ogImage ?? image.src, Astro.url);
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="sitemap" href="/sitemap-index.xml" />
 <link
 	rel="alternate"
@@ -33,14 +34,12 @@ const socialImageURL = new URL(ogImage ?? image.src, Astro.url);
 />
 <meta name="generator" content={Astro.generator} />
 
-<!-- Set theme before paint to avoid a flash of the wrong theme. -->
+<!-- Set theme before paint to avoid a flash of the wrong theme.
+     Defaults to light; only an explicit stored choice overrides it. -->
 <script is:inline>
 	(() => {
 		const stored = localStorage.getItem('theme');
-		const theme =
-			stored ??
-			(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-		document.documentElement.dataset.theme = theme;
+		document.documentElement.dataset.theme = stored === 'dark' ? 'dark' : 'light';
 	})();
 </script>
 
