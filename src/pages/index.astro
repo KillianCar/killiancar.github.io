@@ -14,7 +14,13 @@ const posts = await getPublishedPosts();
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			.intro {
+				margin: 0 0 0.35rem;
+			}
+			.subtitle {
 				margin: 0 0 1.75rem;
+				font-family: var(--font-mono);
+				font-size: 0.85rem;
+				color: var(--muted);
 			}
 			.post-list {
 				list-style: none;
@@ -79,6 +85,7 @@ const posts = await getPublishedPosts();
 		<ThemeToggle />
 		<main>
 			<h1 class="intro">{SITE_HEADING}</h1>
+			<p class="subtitle">Builder, Head of Product Engineering @ Jentic</p>
 			<ul class="post-list">
 				{
 					posts.map((post) => (
