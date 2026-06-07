@@ -6,7 +6,7 @@ pubDate: '2026-06-07'
 
 Your job is no longer to produce the code, but to produce the system that produces the code.
 
-That system is the harness: the tools, constraints, context, and feedback loops surrounding the model. The harness creates the conditions for the model to produce high-quality output over longer periods, with less human intervention, and at far greater scale than was previously possible. The harness and the model together make up an agent. 
+That system is the harness: the tools, constraints, context, and feedback loops surrounding the model. The harness creates the conditions for the model to produce high-quality output over longer periods, with less human intervention, and at far greater scale than was previously possible. The harness and the model together make up the agent. 
 
 Since your job is to produce the harness rather than the code, you should not spend a significant amount of time correcting output during code review. Providing feedback on implementation details relevant to a particular change is fine, but feedback that is broadly applicable should be incorporated back into the harness. When a generated pull request deviates too far from what is expected, treat that as a failure of the harness. Be willing to discard the pull request, improve the harness, and try again.
 
