@@ -33,13 +33,24 @@ const posts = await getPublishedPosts();
 				grid-template-columns: 1fr auto;
 				column-gap: 1rem;
 				align-items: baseline;
-				padding: 0.7rem 0 0.7rem 0.85rem;
+				/* No left indent: titles align flush with the heading. The hover
+				   accent uses an absolutely-positioned bar in the left margin so
+				   it doesn't push the text inward. */
+				padding: 0.7rem 0;
 				border-top: 1px solid var(--rule);
-				border-left: 2px solid transparent;
-				transition: border-color 0.18s ease;
 			}
-			.post:hover {
-				border-left-color: var(--accent);
+			.post::before {
+				content: '';
+				position: absolute;
+				left: -0.85rem;
+				top: 0;
+				bottom: 0;
+				width: 2px;
+				background: transparent;
+				transition: background-color 0.18s ease;
+			}
+			.post:hover::before {
+				background: var(--accent);
 			}
 			.post-title {
 				grid-column: 1;
@@ -91,7 +102,7 @@ const posts = await getPublishedPosts();
 					posts.map((post) => (
 						<li class="post">
 							<h2 class="post-title">
-								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								<a href={`/${post.id}/`}>{post.data.title}</a>
 							</h2>
 							<span class="post-date">
 								<FormattedDate date={post.data.pubDate} />

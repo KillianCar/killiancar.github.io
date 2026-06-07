@@ -1,7 +1,8 @@
 ---
-// A floating light/dark theme toggle pinned to the top-right corner.
-// The initial theme is applied before paint by the inline script in
-// BaseHead.astro; this button flips it and persists the choice.
+// A light/dark theme toggle in the top-right corner. Uses absolute (not fixed)
+// positioning so it stays put and scrolls away with the page rather than
+// floating over content. The initial theme is applied before paint by the
+// inline script in BaseHead.astro; this button flips it and persists the choice.
 ---
 
 <button id="theme-toggle" type="button" aria-label="Toggle color theme">
@@ -21,7 +22,7 @@
 
 <style>
 	#theme-toggle {
-		position: fixed;
+		position: absolute;
 		top: 1rem;
 		right: 1rem;
 		z-index: 50;

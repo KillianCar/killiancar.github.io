@@ -23,7 +23,7 @@
 	--fg: #e6e9ef;
 	--muted: #8b94a7;
 	--accent: #5eead4;
-	--rule: #232834;
+	--rule: #3a4150;
 	--code-bg: #1d222c;
 	--code-block-bg: #0a0c11;
 	--code-fg: #e6e9ef;
@@ -72,10 +72,10 @@ h2 {
 	font-size: 1.5rem;
 }
 h3 {
-	font-size: 1.25rem;
+	font-size: 1.1rem;
 }
 h4 {
-	font-size: 1.1rem;
+	font-size: 1rem;
 }
 
 /* Links */
@@ -139,11 +139,18 @@ input {
 }
 
 @media (max-width: 720px) {
+	body {
+		font-size: 15px;
+	}
 	main {
-		padding: 1.5rem 1em 2.5rem;
+		max-width: 100%;
+		padding: 1rem 0.85rem 2.5rem;
 	}
 	h1 {
-		font-size: 1.6rem;
+		font-size: 1.5rem;
+		/* Reserve space so the heading wraps beside the top-right theme
+		   toggle rather than running underneath it. */
+		padding-right: 3rem;
 	}
 }
 
