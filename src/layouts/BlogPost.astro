@@ -20,7 +20,7 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage } =
 		<style>
 			.back {
 				display: inline-block;
-				margin-bottom: 2rem;
+				margin-bottom: 1rem;
 				font-family: var(--font-mono);
 				font-size: 0.85rem;
 				color: var(--muted);
@@ -39,7 +39,7 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage } =
 				font-family: var(--font-mono);
 				font-size: 0.78rem;
 				color: var(--muted);
-				margin-bottom: 0.4rem;
+				margin-top: 0.4rem;
 			}
 			.last-updated-on {
 				font-style: italic;
@@ -70,6 +70,7 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage } =
 			<a class="back" href="/">killianc.com</a>
 			<article>
 				<div class="post-header">
+					<h1>{title}</h1>
 					<div class="post-meta">
 						<FormattedDate date={pubDate} />
 						{
@@ -80,7 +81,6 @@ const { title, description, pubDate, updatedDate, heroImage, ogImage } =
 							)
 						}
 					</div>
-					<h1>{title}</h1>
 				</div>
 				{
 					heroImage && (
