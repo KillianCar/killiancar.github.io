@@ -1,6 +1,6 @@
 ---
 title: 'No, AI Shouldn’t Replace Graduate Hires'
-description: 'The floor has risen so that every employee can accomplish more than they could before'
+description: 'The floor has risen so that every employee can accomplish more than they could before.'
 pubDate: '2026-06-27'
 ---
 
