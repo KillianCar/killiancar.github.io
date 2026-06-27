@@ -1,6 +1,6 @@
 ---
 title: 'No, AI Shouldn’t Replace Graduate Hires'
-description: 'AI hasn’t removed the need for graduates — it has raised the floor so they can do work that once took years of experience.'
+description: 'The floor has risen so that every employee can accomplish more than they could before'
 pubDate: '2026-06-27'
 ---
 
