@@ -49,8 +49,10 @@ const posts = await getPublishedPosts();
 				background: transparent;
 				transition: background-color 0.18s ease;
 			}
-			.post:hover::before {
-				background: var(--accent);
+			@media (hover: hover) {
+				.post:hover::before {
+					background: var(--accent);
+				}
 			}
 			.post-title {
 				grid-column: 1;
@@ -72,8 +74,10 @@ const posts = await getPublishedPosts();
 				position: absolute;
 				inset: 0;
 			}
-			.post:hover .post-title a {
-				color: var(--accent);
+			@media (hover: hover) {
+				.post:hover .post-title a {
+					color: var(--accent);
+				}
 			}
 			.post-date {
 				grid-column: 2;
