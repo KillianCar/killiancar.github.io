@@ -1,6 +1,6 @@
 ---
 title: 'No, AI Shouldn’t Replace Graduate Hires'
-description: 'The floor has risen so that every employee can accomplish more than they could before.'
+description: 'Companies are halting graduate hires due to AI, and it''s a mistake.'
 pubDate: '2026-06-27'
 ---
 
