@@ -6,7 +6,7 @@ pubDate: '2026-06-27'
 
 I recently attended an event where a senior executive told me that they felt sorry for graduates, that the company did not need to hire them as the tasks they usually took on were now largely automated by AI. Many leaders in knowledge work companies have been echoing the same sentiment.
 
-While it’s true that much of this entry-level work has gone away, what they haven't realised is that the difficulty in accomplishing most knowledge work has dropped due to AI, which means that tasks that previously required several years of experience can now be completed by… graduates. The floor has risen so that every employee can accomplish more than they could before, and work of increasing difficulty can be handled further down the chain.
+While it’s true that much of this entry-level work has gone away, what they haven't realised is that the difficulty in accomplishing most knowledge work has dropped due to AI, which means that tasks that previously required several years of experience can now be completed by… graduates. The floor has risen so that every employee can accomplish more than they could before, and work of increasing complexity can be handled further down the chain.
 
 Junior employees are unburdened by years of accumulated industry standards and practices. Of course this means they need training, but explaining these standards from first principles forces you to re-evaluate what is still valuable and what has been unnecessarily slowing you down.
 
