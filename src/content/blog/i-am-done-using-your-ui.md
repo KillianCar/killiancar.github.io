@@ -1,10 +1,10 @@
 ---
-title: "I'm Done Using Your UI"
+title: "I Am Done Using Your UI"
 description: "AI will use your product on my behalf, and if your business has an agent-friendly interface then you will be at an enormous advantage over the next decade."
 pubDate: '2026-11-09'
 ---
 
-I'm done using your user interface. AI will use your product on my behalf, and if your business has an agent-friendly interface, then you will be at an enormous advantage over the next decade.
+I am done using your user interface. AI will use your product on my behalf, and if your business has an agent-friendly interface, then you will be at an enormous advantage over the next decade.
 
 I recently rented a car for a trip abroad. My AI agent found eight car rental companies and was able to automatically generate quotes for five of them. The other three blocked the non-human traffic, and since I was now being forced to go through the Herculean effort of fumbling around their websites, I just didn't bother.
 
