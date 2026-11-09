@@ -1,6 +1,6 @@
 ---
 title: "I'm Done Using Your UI"
-description: "AI will use your product on my behalf, and if your business has an agent-friendly interface, then you will be at an enormous advantage over the next decade."
+description: "AI will use your product on my behalf, and if your business has an agent-friendly interface then you will be at an enormous advantage over the next decade."
 pubDate: '2026-11-09'
 ---
 
